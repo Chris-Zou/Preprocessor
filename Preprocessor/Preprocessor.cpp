@@ -2,6 +2,10 @@
 #include <stdarg.h>
 #include "utils.h"
 
+extern "C" {
+#include "fpp.h"
+}
+
 
 Preprocessor::Preprocessor(const char* _filePath, bool _essl, const char* _includeDir)
 	: m_tagptr(m_tags)
@@ -105,13 +109,13 @@ bool Preprocessor::run(const char* _input)
 	m_input += temp;
 	delete[] temp;
 
-	fppTag* tagptr = m_tagptr;
+	fppTag* tagptr = (fppTag*)m_tagptr;
 
 	tagptr->tag = FPPTAG_END;
 	tagptr->data = 0;
 	tagptr++;
 
-	int result = fppPreProcess(m_tags);
+	int result = fppPreProcess((fppTag*)m_tags);
 
 	return 0 == result;
 }

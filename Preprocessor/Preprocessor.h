@@ -6,9 +6,7 @@
 #include <stdlib.h>
 #include <string>
 
-extern "C" {
-#include "fpp.h"
-}
+
 
 class Preprocessor
 {
@@ -30,8 +28,12 @@ public:
 
 
 private:
-	fppTag m_tags[MAX_TAGS];
-	fppTag* m_tagptr;
+	struct fcppTag {
+		int tag;
+		void *data;
+	};
+	fcppTag m_tags[MAX_TAGS];
+	fcppTag* m_tagptr;
 
 	std::string m_depends;
 	std::string m_default;
