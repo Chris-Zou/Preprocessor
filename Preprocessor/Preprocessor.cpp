@@ -109,13 +109,13 @@ bool Preprocessor::run(const char* _input)
 	m_input += temp;
 	delete[] temp;
 
-	fppTag* tagptr = (fppTag*)m_tagptr;
+	fppTag* tagptr = reinterpret_cast<fppTag*>(m_tagptr);
 
 	tagptr->tag = FPPTAG_END;
 	tagptr->data = 0;
 	tagptr++;
 
-	int result = fppPreProcess((fppTag*)m_tags);
+	int result = fppPreProcess(reinterpret_cast<fppTag*>(m_tags));
 
 	return 0 == result;
 }
